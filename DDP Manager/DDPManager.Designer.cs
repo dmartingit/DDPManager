@@ -37,6 +37,8 @@
             this.lblContent1 = new System.Windows.Forms.Label();
             this.lblContent2 = new System.Windows.Forms.Label();
             this.lblContent3 = new System.Windows.Forms.Label();
+            this.tbSaveDirectory = new System.Windows.Forms.TextBox();
+            this.btnOpen = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLoad
@@ -120,11 +122,30 @@
             this.lblContent3.TabIndex = 13;
             this.lblContent3.Text = "DEUTSCHE-DJ-PLAYLIST - WIEDEREINSTEIGER";
             // 
+            // tbSaveDirectory
+            // 
+            this.tbSaveDirectory.Location = new System.Drawing.Point(175, 13);
+            this.tbSaveDirectory.Name = "tbSaveDirectory";
+            this.tbSaveDirectory.Size = new System.Drawing.Size(455, 20);
+            this.tbSaveDirectory.TabIndex = 14;
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.Location = new System.Drawing.Point(636, 12);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(75, 23);
+            this.btnOpen.TabIndex = 15;
+            this.btnOpen.Text = "Open";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
             // DPPManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 468);
+            this.Controls.Add(this.btnOpen);
+            this.Controls.Add(this.tbSaveDirectory);
             this.Controls.Add(this.lblContent3);
             this.Controls.Add(this.lblContent2);
             this.Controls.Add(this.lblContent1);
@@ -152,6 +173,8 @@
         private System.Windows.Forms.Label lblContent1;
         private System.Windows.Forms.Label lblContent2;
         private System.Windows.Forms.Label lblContent3;
+        private System.Windows.Forms.TextBox tbSaveDirectory;
+        private System.Windows.Forms.Button btnOpen;
     }
 }
 

@@ -22,6 +22,8 @@ namespace DDP_Manager
             m_labelList.Add(lblContent1);
             m_labelList.Add(lblContent2);
             m_labelList.Add(lblContent3);
+
+            tbSaveDirectory.Text = Properties.Settings.Default.LastSaveFolder;
         }
 
         private Tuple<string, List<string>> getTracks(string url, bool onlyReEntries = false)
@@ -155,55 +157,92 @@ namespace DDP_Manager
             t.Start();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private bool GetSaveDirectory()
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.SelectedPath = Properties.Settings.Default.LastSaveFolder;
             if (fbd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
             {
-                List<string> fileNames = new List<string>()
-                {
-                    fbd.SelectedPath + "\\Top100.txt",
-                    fbd.SelectedPath + "\\Neueinsteiger.txt",
-                    fbd.SelectedPath + "\\Wiedereinsteiger.txt"
-                };
+                // Save last folder
+                Properties.Settings.Default.LastSaveFolder = fbd.SelectedPath;
 
-                if(!(m_listboxList.Count == fileNames.Count))
+                // Set directory textbox
+                tbSaveDirectory.Text = fbd.SelectedPath;
+
+                return true;
+            }
+            return false;
+        }
+
+        private void SaveFiles(string directory)
+        {
+            List<string> fileNames = new List<string>()
+            {
+                directory + "\\Top100.txt",
+                directory + "\\Neueinsteiger.txt",
+                directory + "\\Wiedereinsteiger.txt"
+            };
+
+            if (!(m_listboxList.Count == fileNames.Count))
+            {
+                return;
+            }
+
+            for (var i = 0; i < m_listboxList.Count; ++i)
+            {
+                StreamWriter sw = new StreamWriter(fileNames[i]);
+                List<string> list = new List<string>();
+
+                foreach (var item in m_listboxList[i].Items)
+                {
+                    string str = item.ToString();
+                    str = Regex.Replace(str, @"\r\n?|\n", String.Empty);
+                    list.Add(str);
+                }
+                string res = String.Join("\r\n", list);
+
+                sw.Write(res);
+
+                sw.Close();
+            }
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            GetSaveDirectory();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if(tbSaveDirectory.Text == String.Empty)
+            {
+                if(!GetSaveDirectory())
                 {
                     return;
                 }
-
-                for(var i = 0; i < m_listboxList.Count; ++i)
-                {
-                    StreamWriter sw = new StreamWriter(fileNames[i]);
-                    List<string> list = new List<string>();
-
-                    foreach (var item in m_listboxList[i].Items)
-                    {
-                        string str = item.ToString();
-                        str = Regex.Replace(str, @"\r\n?|\n", String.Empty);
-                        list.Add(str);
-                    }
-                    string res = String.Join("\r\n", list);
-
-                    sw.Write(res);
-
-                    sw.Close();
-                }
-
-                // Save last folder
-                Properties.Settings.Default.LastSaveFolder = fbd.SelectedPath;
             }
+
+            SaveFiles(tbSaveDirectory.Text);
         }
 
         private void lbContent_DoubleClick(object sender, EventArgs e)
         {
+            List<string> filter = new List<string>()
+            {
+                "Feat.",
+                "&",
+                "/\\"
+            };
+
             string content = ((ListBox)sender).SelectedItem.ToString();
             var splitted = content.Split('-');
             string artist = splitted[1].Remove(0, 1);
-            artist = artist.Replace("Feat. ", "");
-            artist = artist.Replace("& ", "");
-            artist = artist.Replace("/\\ ", "");
+
+            foreach(var token in filter)
+            {
+                artist = artist.Replace(token + " ", String.Empty);
+            }
+
             string title = splitted[2].Remove(0, 1);
             title = title.Remove(title.Length - 1);
             Clipboard.SetText(artist + title);
