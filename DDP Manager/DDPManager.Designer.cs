@@ -158,6 +158,7 @@
             this.Name = "DPPManager";
             this.Text = "DDP Manager";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DPPManager_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

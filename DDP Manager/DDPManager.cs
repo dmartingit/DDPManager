@@ -247,5 +247,10 @@ namespace DDP_Manager
             title = title.Remove(title.Length - 1);
             Clipboard.SetText(artist + title);
         }
+
+        private void DPPManager_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 }
