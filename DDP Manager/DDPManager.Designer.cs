@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DPPManager));
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.cbURL = new System.Windows.Forms.ComboBox();
-            this.lbContent = new System.Windows.Forms.ListBox();
-            this.cbReentry = new System.Windows.Forms.CheckBox();
+            this.lbContent1 = new System.Windows.Forms.ListBox();
+            this.lbContent2 = new System.Windows.Forms.ListBox();
+            this.lbContent3 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // btnLoad
@@ -56,72 +56,47 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // cbURL
+            // lbContent1
             // 
-            this.cbURL.AllowDrop = true;
-            this.cbURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbContent1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbURL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbURL.FormattingEnabled = true;
-            this.cbURL.Items.AddRange(new object[] {
-            "http://www.deutsche-dj-playlist.de/DDP-Charts/",
-            "http://www.deutsche-dj-playlist.de/DDP-Charts-Top100/",
-            "http://www.deutsche-dj-playlist.de/DDP-Charts-Hot50/",
-            "http://www.deutsche-dj-playlist.de/DDP-Charts-Neueinsteiger/",
-            "http://www.deutsche-dj-playlist.de/DDP-Charts-Regional/?acn=7",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=ewig",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2005",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2006",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2007",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2008",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2009",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2010",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2011",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2012",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2013",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2014",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2015",
-            "http://www.deutsche-dj-playlist.de/DDP-Jahrescharts/?ddpJahr=2016",
-            "http://www.deutsche-dj-playlist.de/DDP-Schlager-Charts/",
-            "http://www.deutsche-dj-playlist.de/DDP-Schlager-Charts-Top100/",
-            "http://www.deutsche-dj-playlist.de/DDP-Schlager-Charts-Hot50/",
-            "http://www.deutsche-dj-playlist.de/DDP-Schlager-Charts-Neueinsteiger/"});
-            this.cbURL.Location = new System.Drawing.Point(174, 12);
-            this.cbURL.Name = "cbURL";
-            this.cbURL.Size = new System.Drawing.Size(465, 21);
-            this.cbURL.TabIndex = 5;
+            this.lbContent1.FormattingEnabled = true;
+            this.lbContent1.Location = new System.Drawing.Point(12, 41);
+            this.lbContent1.Name = "lbContent1";
+            this.lbContent1.Size = new System.Drawing.Size(699, 134);
+            this.lbContent1.TabIndex = 7;
+            this.lbContent1.DoubleClick += new System.EventHandler(this.lbContent_DoubleClick);
             // 
-            // lbContent
+            // lbContent2
             // 
-            this.lbContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbContent2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbContent.FormattingEnabled = true;
-            this.lbContent.Location = new System.Drawing.Point(12, 41);
-            this.lbContent.Name = "lbContent";
-            this.lbContent.Size = new System.Drawing.Size(699, 368);
-            this.lbContent.TabIndex = 7;
-            this.lbContent.DoubleClick += new System.EventHandler(this.lbContent_DoubleClick);
+            this.lbContent2.FormattingEnabled = true;
+            this.lbContent2.Location = new System.Drawing.Point(12, 181);
+            this.lbContent2.Name = "lbContent2";
+            this.lbContent2.Size = new System.Drawing.Size(699, 134);
+            this.lbContent2.TabIndex = 9;
+            this.lbContent2.DoubleClick += new System.EventHandler(this.lbContent_DoubleClick);
             // 
-            // cbReentry
+            // lbContent3
             // 
-            this.cbReentry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbReentry.AutoSize = true;
-            this.cbReentry.Location = new System.Drawing.Point(645, 16);
-            this.cbReentry.Name = "cbReentry";
-            this.cbReentry.Size = new System.Drawing.Size(66, 17);
-            this.cbReentry.TabIndex = 8;
-            this.cbReentry.Text = "Re-entry";
-            this.cbReentry.UseVisualStyleBackColor = true;
+            this.lbContent3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbContent3.FormattingEnabled = true;
+            this.lbContent3.Location = new System.Drawing.Point(12, 321);
+            this.lbContent3.Name = "lbContent3";
+            this.lbContent3.Size = new System.Drawing.Size(699, 134);
+            this.lbContent3.TabIndex = 10;
+            this.lbContent3.DoubleClick += new System.EventHandler(this.lbContent_DoubleClick);
             // 
             // DPPManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(726, 426);
-            this.Controls.Add(this.cbReentry);
-            this.Controls.Add(this.lbContent);
-            this.Controls.Add(this.cbURL);
+            this.ClientSize = new System.Drawing.Size(726, 468);
+            this.Controls.Add(this.lbContent3);
+            this.Controls.Add(this.lbContent2);
+            this.Controls.Add(this.lbContent1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnLoad);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -129,7 +104,6 @@
             this.Text = "DDP Manager";
             this.TopMost = true;
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -137,9 +111,9 @@
 
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.ComboBox cbURL;
-        private System.Windows.Forms.ListBox lbContent;
-        private System.Windows.Forms.CheckBox cbReentry;
+        private System.Windows.Forms.ListBox lbContent1;
+        private System.Windows.Forms.ListBox lbContent2;
+        private System.Windows.Forms.ListBox lbContent3;
     }
 }
 
