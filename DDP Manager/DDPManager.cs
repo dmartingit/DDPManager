@@ -11,6 +11,7 @@ namespace DDP_Manager
     public partial class DPPManager : Form
     {
         List<ListBox> m_listboxList = new List<ListBox>();
+        List<Label> m_labelList = new List<Label>();
 
         public DPPManager()
         {
@@ -18,11 +19,18 @@ namespace DDP_Manager
             m_listboxList.Add(lbContent1);
             m_listboxList.Add(lbContent2);
             m_listboxList.Add(lbContent3);
+            m_labelList.Add(lblContent1);
+            m_labelList.Add(lblContent2);
+            m_labelList.Add(lblContent3);
         }
 
-        private List<string> getTracks(string url, bool onlyReEntries = false)
+        private Tuple<string, List<string>> getTracks(string url, bool onlyReEntries = false)
         {
-            List<string> items = new List<string>();
+            List<string> tracks = new List<string>();
+
+            int pFrom = 0, pTo = 0, rank = 0;
+            String track = String.Empty, artist = String.Empty, trackname = String.Empty, title = String.Empty;
+
             try
             {
                 WebRequest request = WebRequest.Create(url);
@@ -34,12 +42,13 @@ namespace DDP_Manager
                 reader.Close();
                 response.Close();
 
-                int pFrom = 0, pTo = 0, rank = 0;
-                String result = String.Empty, artist = String.Empty, track = String.Empty, title = String.Empty;
-
                 pFrom = content.IndexOf("<h1>") + "<h1>".Length;
                 pTo = content.IndexOf("</h1>", pFrom);
                 title = content.Substring(pFrom, pTo - pFrom);
+                if(onlyReEntries)
+                {
+                    title = title.Replace("TOP 100", "WIEDEREINSTEIGER");
+                }
 
                 content = content.Remove(0, content.IndexOf("<div class=\"eintrag\">") + "<div class=\"eintrag\">".Length);
                 for (var iterator = 0; iterator < 100; ++iterator)
@@ -52,31 +61,30 @@ namespace DDP_Manager
 
                     pFrom = content.IndexOf("<div class=\"platz\">") + "<div class=\"platz\">".Length;
                     pTo = content.IndexOf("</div>", pFrom);
-                    String res = content.Substring(pFrom, pTo - pFrom);
-                    bool isReentry = (res == "RE");
+                    bool isReentry = (content.Substring(pFrom, pTo - pFrom) == "RE");
                     content = content.Remove(0, content.IndexOf("<div class=\"info "));
 
                     pFrom = content.IndexOf("<div class=\"info ") + "<div class=\"info ".Length;
                     pTo = content.IndexOf("<div class=\"icons\">");
-                    result = content.Substring(pFrom, pTo - pFrom);
+                    track = content.Substring(pFrom, pTo - pFrom);
 
-                    pFrom = result.IndexOf("<div class=\"interpret\">") + "<div class=\"interpret\">".Length;
-                    pTo = result.IndexOf("</div>");
-                    artist = result.Substring(pFrom, pTo - pFrom);
+                    pFrom = track.IndexOf("<div class=\"interpret\">") + "<div class=\"interpret\">".Length;
+                    pTo = track.IndexOf("</div>");
+                    artist = track.Substring(pFrom, pTo - pFrom);
 
-                    result = result.Remove(0, pTo + "</div>".Length);
-                    pFrom = result.IndexOf("<div class=\"titel\">") + "<div class=\"titel\">".Length;
-                    pTo = result.IndexOf("</div>");
-                    track = result.Substring(pFrom, pTo - pFrom);
+                    track = track.Remove(0, pTo + "</div>".Length);
+                    pFrom = track.IndexOf("<div class=\"titel\">") + "<div class=\"titel\">".Length;
+                    pTo = track.IndexOf("</div>");
+                    trackname = track.Substring(pFrom, pTo - pFrom);
 
-                    result = rank.ToString().PadLeft(3, '0') + " - " + artist + " - " + track + "\n";
-                    result = result.ToLower();
-                    result = Regex.Replace(result, @"(^\w)|(\s\w)", m => m.Value.ToUpper());
-                    result = Regex.Replace(result, @"\({1}[a-z]", m => m.Value.ToUpper());
+                    track = rank.ToString().PadLeft(3, '0') + " - " + artist + " - " + trackname + "\n";
+                    track = track.ToLower();
+                    track = Regex.Replace(track, @"(^\w)|(\s\w)", m => m.Value.ToUpper());
+                    track = Regex.Replace(track, @"\({1}[a-z]", m => m.Value.ToUpper());
 
                     if (!onlyReEntries || (onlyReEntries && isReentry))
                     {
-                        items.Add(result);
+                        tracks.Add(track);
                     }
 
                     content = content.Remove(0, content.IndexOf("<div class=\"icons\">") + "<div class=\"icons\">".Length);
@@ -84,16 +92,17 @@ namespace DDP_Manager
             }
             catch (Exception)
             {
-                if (items.Count == 0 && !onlyReEntries)
+                if (tracks.Count == 0 && !onlyReEntries)
                 {
-                    items.Add("Failed to load the page content.");
+                    tracks.Add("Failed to load the page content.");
                 }
-                else if (items.Count == 0 && onlyReEntries)
+                else if (tracks.Count == 0 && onlyReEntries)
                 {
-                    items.Add("There are no re-entries or the page was not loaded correctly.");
+                    tracks.Add("There are no re-entries or the page was not loaded correctly.");
                 }
             }
-            return items;
+
+            return new Tuple<string, List<string>>(title, tracks);
         }
 
         private void loadTracks()
@@ -105,11 +114,11 @@ namespace DDP_Manager
                 new List<string>()
             };
 
-            List<KeyValuePair<string, bool>> urlList = new List<KeyValuePair<string, bool>>()
+            List<Tuple<string, bool>> urlList = new List<Tuple<string, bool>>()
             {
-                new KeyValuePair<string, bool>("http://www.deutsche-dj-playlist.de/DDP-Charts-Top100/", false),
-                new KeyValuePair<string, bool>("http://www.deutsche-dj-playlist.de/DDP-Charts-Neueinsteiger/", false),
-                new KeyValuePair<string, bool>("http://www.deutsche-dj-playlist.de/DDP-Charts-Top100/", true)
+                new Tuple<string, bool>("http://www.deutsche-dj-playlist.de/DDP-Charts-Top100/", false),
+                new Tuple<string, bool>("http://www.deutsche-dj-playlist.de/DDP-Charts-Neueinsteiger/", false),
+                new Tuple<string, bool>("http://www.deutsche-dj-playlist.de/DDP-Charts-Top100/", true)
             };
             
             // Check if all lists are equally
@@ -121,12 +130,19 @@ namespace DDP_Manager
             for(var i = 0; i < m_listboxList.Count; ++i)
             {
                 // Get Tracks
-                contentList[i] = getTracks(urlList[i].Key, urlList[i].Value);
+                Tuple<string, List<string>> tracks = getTracks(urlList[i].Item1, urlList[i].Item2);
+                contentList[i] = tracks.Item2;
 
                 // Fill Tracks into GUI
                 m_listboxList[i].Invoke((MethodInvoker)delegate
                 {
                     m_listboxList[i].DataSource = contentList[i];
+                });
+
+                // Set Labels
+                m_labelList[i].Invoke((MethodInvoker)delegate
+                {
+                    m_labelList[i].Text = tracks.Item1;
                 });
             }
         }

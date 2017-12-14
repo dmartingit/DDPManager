@@ -34,6 +34,9 @@
             this.lbContent1 = new System.Windows.Forms.ListBox();
             this.lbContent2 = new System.Windows.Forms.ListBox();
             this.lbContent3 = new System.Windows.Forms.ListBox();
+            this.lblContent1 = new System.Windows.Forms.Label();
+            this.lblContent2 = new System.Windows.Forms.Label();
+            this.lblContent3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnLoad
@@ -61,9 +64,9 @@
             this.lbContent1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbContent1.FormattingEnabled = true;
-            this.lbContent1.Location = new System.Drawing.Point(12, 41);
+            this.lbContent1.Location = new System.Drawing.Point(12, 54);
             this.lbContent1.Name = "lbContent1";
-            this.lbContent1.Size = new System.Drawing.Size(699, 134);
+            this.lbContent1.Size = new System.Drawing.Size(699, 121);
             this.lbContent1.TabIndex = 7;
             this.lbContent1.DoubleClick += new System.EventHandler(this.lbContent_DoubleClick);
             // 
@@ -72,28 +75,59 @@
             this.lbContent2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbContent2.FormattingEnabled = true;
-            this.lbContent2.Location = new System.Drawing.Point(12, 181);
+            this.lbContent2.Location = new System.Drawing.Point(12, 194);
             this.lbContent2.Name = "lbContent2";
-            this.lbContent2.Size = new System.Drawing.Size(699, 134);
+            this.lbContent2.Size = new System.Drawing.Size(699, 121);
             this.lbContent2.TabIndex = 9;
             this.lbContent2.DoubleClick += new System.EventHandler(this.lbContent_DoubleClick);
             // 
             // lbContent3
             // 
-            this.lbContent3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbContent3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbContent3.FormattingEnabled = true;
-            this.lbContent3.Location = new System.Drawing.Point(12, 321);
+            this.lbContent3.Location = new System.Drawing.Point(12, 334);
             this.lbContent3.Name = "lbContent3";
-            this.lbContent3.Size = new System.Drawing.Size(699, 134);
+            this.lbContent3.Size = new System.Drawing.Size(699, 121);
             this.lbContent3.TabIndex = 10;
             this.lbContent3.DoubleClick += new System.EventHandler(this.lbContent_DoubleClick);
+            // 
+            // lblContent1
+            // 
+            this.lblContent1.AutoSize = true;
+            this.lblContent1.Location = new System.Drawing.Point(12, 38);
+            this.lblContent1.Name = "lblContent1";
+            this.lblContent1.Size = new System.Drawing.Size(187, 13);
+            this.lblContent1.TabIndex = 11;
+            this.lblContent1.Text = "DEUTSCHE-DJ-PLAYLIST - TOP 100";
+            // 
+            // lblContent2
+            // 
+            this.lblContent2.AutoSize = true;
+            this.lblContent2.Location = new System.Drawing.Point(12, 178);
+            this.lblContent2.Name = "lblContent2";
+            this.lblContent2.Size = new System.Drawing.Size(232, 13);
+            this.lblContent2.TabIndex = 12;
+            this.lblContent2.Text = "DEUTSCHE-DJ-PLAYLIST - NEUEINSTEIGER";
+            // 
+            // lblContent3
+            // 
+            this.lblContent3.AutoSize = true;
+            this.lblContent3.Location = new System.Drawing.Point(12, 318);
+            this.lblContent3.Name = "lblContent3";
+            this.lblContent3.Size = new System.Drawing.Size(253, 13);
+            this.lblContent3.TabIndex = 13;
+            this.lblContent3.Text = "DEUTSCHE-DJ-PLAYLIST - WIEDEREINSTEIGER";
             // 
             // DPPManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(726, 468);
+            this.Controls.Add(this.lblContent3);
+            this.Controls.Add(this.lblContent2);
+            this.Controls.Add(this.lblContent1);
             this.Controls.Add(this.lbContent3);
             this.Controls.Add(this.lbContent2);
             this.Controls.Add(this.lbContent1);
@@ -104,6 +138,7 @@
             this.Text = "DDP Manager";
             this.TopMost = true;
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -114,6 +149,9 @@
         private System.Windows.Forms.ListBox lbContent1;
         private System.Windows.Forms.ListBox lbContent2;
         private System.Windows.Forms.ListBox lbContent3;
+        private System.Windows.Forms.Label lblContent1;
+        private System.Windows.Forms.Label lblContent2;
+        private System.Windows.Forms.Label lblContent3;
     }
 }
 
